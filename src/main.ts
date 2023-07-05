@@ -6,4 +6,4 @@ import { pinia } from "./pinia";
 
 const app = createApp(App);
 
-app.use(store).use(router).use(pinia).mount("#app");
+app.use(store).use(pinia).use(router).mount("#app");
