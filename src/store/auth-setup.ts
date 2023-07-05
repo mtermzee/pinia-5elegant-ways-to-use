@@ -1,25 +1,25 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-export const useUserStore = defineStore("auth", {
-	state: () => ({
-		user: null as User | null,
-	}),
+export const useAuthSetupStore = defineStore("auth-setup", () => {
+	const router = useRouter();
+	const user = ref<User | null>(null);
+	async function login(name: string, password: string) {
+		user.value = await verifyCredentials(name, password);
+	}
+	function logout() {
+		user.value = null;
+		router.push("/login");
+	}
 
-	actions: {
-		async login(user: string, password: string) {
-			this.user = await verifyCredentials(user, password);
-		},
-		logout() {
-			this.user = null;
-			this.router.push("/login");
-		},
-	},
+	return { user, login, logout };
 });
 
 // maybe needs to fix
 if ((import.meta as any).hot) {
 	(import.meta as any).hot.accept(
-		acceptHMRUpdate(useUserStore, (import.meta as any).hot)
+		acceptHMRUpdate(useAuthSetupStore, (import.meta as any).hot)
 	);
 }
 
