@@ -5,6 +5,7 @@ import { markRaw } from "vue";
 
 export const pinia = createPinia();
 
+// Using the Router within a Store and vice versa
 pinia.use(({ store }) => {
 	// USING markRaw for complex objects for avoid problems and get performance
 	store.router = markRaw(router);

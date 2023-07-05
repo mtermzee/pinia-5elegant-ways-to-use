@@ -25,6 +25,7 @@ export const router = createRouter({
 	routes,
 });
 
+// Using the Router within a Store and vice versa
 router.beforeEach((to) => {
 	if (to.meta.requiresAuth) {
 		const userSore = useUserStore(pinia);
