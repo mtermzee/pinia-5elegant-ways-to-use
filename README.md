@@ -35,4 +35,4 @@ See [5 Elegant ways to use Pinia](https://www.vuemastery.com/courses/5-elegant-w
 - Using Composables within Stores
 - Splitting Stores
 - Intercepting Actions
-- Augmenting Store options
+- Augmenting Store options (not implmented. Not need it!)
