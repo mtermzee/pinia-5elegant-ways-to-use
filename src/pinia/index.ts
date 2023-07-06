@@ -11,6 +11,30 @@ pinia.use(({ store }) => {
 	store.router = markRaw(router);
 });
 
+// check on console such cool thing :) Intercepting Actions
+pinia.use(({ store }) => {
+	store.$onAction(({ store, name, args, after, onError }) => {
+		console.log(
+			`🛫[${store.$id}] action ${name} with args ${JSON.stringify(
+				args
+			)} was invoked`
+		);
+
+		after((result) => {
+			console.log(
+				`🛬[${store.$id}] action ${name} with args ${JSON.stringify(
+					args
+				)} was resolved with ${JSON.stringify(result)}`
+			);
+		});
+
+		onError((error) => {
+			console.log(`❌[${store.$id}] action ${name} threw an error ${error}`);
+			// console.log(pinia.state.value);
+		});
+	});
+});
+
 declare module "pinia" {
 	export interface PiniaCustomProperties {
 		router: Router;
