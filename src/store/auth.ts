@@ -1,19 +1,26 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
+import { useNotificationsStore } from "./notifications";
+import { ref } from "vue";
+// splitting Stores NotificationsStore & useUserStore
 
-export const useUserStore = defineStore("auth", {
-	state: () => ({
-		user: null as User | null,
-	}),
+export const useUserStore = defineStore("auth", () => {
+	const user = ref<User | null>(null);
+	const notificationsStore = useNotificationsStore();
 
-	actions: {
-		async login(user: string, password: string) {
-			this.user = await verifyCredentials(user, password);
-		},
-		logout() {
-			this.user = null;
-			this.router.push("/login");
-		},
-	},
+	async function login(name: string, password: string) {
+		user.value = await verifyCredentials(name, password);
+	}
+
+	function logout() {
+		user.value = null;
+		notificationsStore.showNotification("Logged out successfully!");
+	}
+
+	return {
+		user,
+		login,
+		logout,
+	};
 });
 
 // maybe needs to fix

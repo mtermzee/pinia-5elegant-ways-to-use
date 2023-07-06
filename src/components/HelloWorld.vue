@@ -2,12 +2,14 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
+    <AuthHome />
     <CounterHome />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import AuthHome from "./AuthHome.vue";
 import CounterHome from "./CounterHome.vue";
 
 export default defineComponent({
@@ -15,7 +17,7 @@ export default defineComponent({
   props: {
     msg: String,
   },
-  components: { CounterHome }
+  components: { CounterHome, AuthHome }
 });
 </script>
 
